@@ -1,11 +1,11 @@
 import { Routes, Route } from 'react-router-dom';
-import { Wordle } from './assets/components/wordle';
+import { ShowWord } from './assets/components/ShowWord';
 
 function App() {
 
   return (
     <Routes>
-      <Route path='/' element={<Wordle/>}/>
+      <Route path='/' element={<ShowWord/>}/>
     </Routes>
   )
 }

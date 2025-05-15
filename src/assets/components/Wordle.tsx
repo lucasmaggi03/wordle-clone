@@ -1,22 +1,16 @@
-import "./Wordle.css";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
+import useWordle from "../../hooks/useWordle"
 
-export function Wordle(){
-    const [solution, setSolution] = useState(null);
+export default function Wordle({solution}) {
+  const { currentGuess, handleKeyup } = useWordle(solution);
 
-    useEffect(() => {
-        fetch("http://localhost:3001/palabras")
-        .then((response) => response.json())
-        .then(json => {
-            const randomSol = json[Math.floor(Math.random() * json.length)];
-            setSolution(randomSol.word)
-        })
-    }, [setSolution]);
+  useEffect(() => {
+    window.addEventListener('keyup', handleKeyup)
 
-    return(
-        <>
-            <h1>Wordle Clone</h1>
-            {solution && <div>Solution is: {solution}</div>}
-        </>
-    );
+    return() => { window.removeEventListener('keyup', handleKeyup) }
+  }, [handleKeyup])
+
+  return (
+    <div>current guess- {currentGuess}</div>
+  )
 }
